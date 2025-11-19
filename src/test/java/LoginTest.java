@@ -2,6 +2,9 @@ import org.junit.jupiter.api.Test;
 import pages.InventoryPage;
 import pages.LoginPage;
 import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import java.time.Duration;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -52,7 +55,7 @@ public class LoginTest extends BaseTest {
     @Test
     public void testLoginWithValidCredentials() {
         System.out.println("Test UC-3: Login with valid credentials");
-        
+
         LoginPage loginPage = new LoginPage(driver);
         loginPage.open();
         loginPage.enterUsername("standard_user");
@@ -62,10 +65,26 @@ public class LoginTest extends BaseTest {
         loginPage.clickLogin();
         try { Thread.sleep(2000); } catch (InterruptedException e) {}
 
+        try {
+            ((org.openqa.selenium.JavascriptExecutor) driver).executeScript(
+                    "var buttons = document.querySelectorAll('button');" +
+                            "for(var i=0; i<buttons.length; i++){" +
+                            "  if(buttons[i].textContent.includes('OK')){" +
+                            "    buttons[i].click();" +
+                            "    break;" +
+                            "  }" +
+                            "}"
+            );
+            System.out.println("Closed password popup via JavaScript");
+            Thread.sleep(500);
+        } catch (Exception e) {
+            // Popup did not appear, continue
+        }
+
         InventoryPage inventoryPage = new InventoryPage(driver);
         assertTrue(inventoryPage.isOpened(), "Inventory page should be opened");
         assertEquals("Products", inventoryPage.getTitle(), "Page title should be Products");
-        
+
         System.out.println("UC-3 passed: Successfully logged in");
     }
 }

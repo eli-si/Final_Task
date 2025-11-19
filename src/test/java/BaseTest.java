@@ -6,6 +6,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import java.time.Duration;
+import java.util.Map;
+import java.util.HashMap;
 
 public class BaseTest {
     protected WebDriver driver;
@@ -24,11 +26,19 @@ public class BaseTest {
             ChromeOptions options = new ChromeOptions();
             options.addArguments("--disable-blink-features=AutomationControlled");
             options.addArguments("--disable-save-password-bubble");
-            options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
-            options.setExperimentalOption("prefs", java.util.Map.of(
-                    "credentials_enable_service", false,
-                    "profile.password_manager_enabled", false
-            ));
+            options.addArguments("--disable-notifications");
+            options.addArguments("--disable-infobars");
+            options.addArguments("--start-maximized");
+
+            Map<String, Object> prefs = new HashMap<>();
+            prefs.put("credentials_enable_service", false);
+            prefs.put("profile.password_manager_enabled", false);
+            prefs.put("profile.default_content_setting_values.notifications", 2);
+            prefs.put("autofill.profile_enabled", false);
+
+            options.setExperimentalOption("prefs", prefs);
+            options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation", "enable-logging"});
+            options.setExperimentalOption("useAutomationExtension", false);
 
             driver = new ChromeDriver(options);
             System.out.println("Starting Chrome browser");
