@@ -21,7 +21,6 @@ public class LoginTest extends BaseTest {
 
         assertTrue(loginPage.isErrorDisplayed(), "Error message should be displayed");
         String errorText = loginPage.getErrorMessage();
-        System.out.println("ACTUAL ERROR TEXT: [" + errorText + "]");
 
         assertTrue(errorText.contains("Username is required"),
                 "Error should mention username is required. Actual: " + errorText);
@@ -42,7 +41,6 @@ public class LoginTest extends BaseTest {
 
         assertTrue(loginPage.isErrorDisplayed(), "Error message should be displayed");
         String errorText = loginPage.getErrorMessage();
-        System.out.println("ACTUAL ERROR TEXT: [" + errorText + "]");
 
         assertTrue(errorText.contains("Password is required"),
                 "Error should mention password is required. Actual: " + errorText);
