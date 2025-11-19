@@ -66,13 +66,8 @@ Note: If Edge tests fail with network error, you need to download Edge driver ma
 2. Download driver:
    - Go to https://developer.microsoft.com/en-us/microsoft-edge/tools/webdriver/
    - Download the version that matches your Edge
-   - Get the Windows 64-bit version
 
-3. Extract and setup:
-   - Extract the downloaded zip file
-   - Create folder: C:\WebDrivers
-   - Put msedgedriver.exe into C:\WebDrivers
-   - The code will automatically use it if WebDriverManager fails
+3. Extract and setup
 
 4. Run tests with Edge:
    
