@@ -74,9 +74,18 @@ Assertions: Hamcrest
 - Java 11+
 - Maven 3.6+
 - Selenium WebDriver 4.15.0
-- JUnit 5.10.1
+- JUnit 5.10.1 with parametrized tests
 - WebDriverManager 5.6.2
+- Logback for logging
 - Chrome or Edge browser
+
+# Features
+
+- *Parallel Execution*: Tests run in parallel
+- *Parametrized Tests*: UC-2 and UC-3 use @ParameterizedTest with multiple data sets
+- *Logging*: Logback logger instead of System.out.println
+- *Page Object Pattern*: 
+- *XPath Locators*: 
 
 # How to run tests
 
@@ -112,11 +121,15 @@ Note: If Edge tests fail with network error, you need to download Edge driver ma
 
 # Test Results
 
-All tests pass successfully:
+All tests pass successfully with parallel execution:
 
-- UC-1: Tests empty login - expects "Username is required" error
-- UC-2: Tests login with only username - expects "Password is required" error  
-- UC-3: Tests valid login - expects successful login to Products page
+- *UC-1*: Tests empty login - expects "Username is required" error (1 test)
+- *UC-2*: Tests login with only username - expects "Password is required" error (3 parametrized tests)
+- *UC-3*: Tests valid login - expects successful login to Products page (3 parametrized tests)
+
+Total: 7 test executions across 3 test methods running in parallel.
+
+Tests use @ParameterizedTest with @CsvSource to test multiple scenarios.
 
 # Technologies Used
 
@@ -125,3 +138,7 @@ All tests pass successfully:
 - WebDriverManager - for automatic driver setup
 - Maven - for building project
 - Page Object Pattern - for organizing page elements
+- XPath locators are used as required
+- Tests run in parallel (3 threads) using JUnit 5 parallel execution
+- @ParameterizedTest is used instead of TestNG Data Provider
+- Logback logger provides clean logging output
