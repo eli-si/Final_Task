@@ -8,9 +8,12 @@ import org.openqa.selenium.edge.EdgeDriver;
 import java.time.Duration;
 import java.util.Map;
 import java.util.HashMap;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class BaseTest {
     protected WebDriver driver;
+    protected static final Logger logger = LoggerFactory.getLogger(BaseTest.class);
     
     @BeforeEach
     public void setUp() {
@@ -19,7 +22,7 @@ public class BaseTest {
         if (browser.equalsIgnoreCase("edge")) {
             WebDriverManager.edgedriver().setup();
             driver = new EdgeDriver();
-            System.out.println("Starting Edge browser");
+            logger.info("Starting Edge browser");
         } else {
             WebDriverManager.chromedriver().setup();
 
@@ -41,7 +44,7 @@ public class BaseTest {
             options.setExperimentalOption("useAutomationExtension", false);
 
             driver = new ChromeDriver(options);
-            System.out.println("Starting Chrome browser");
+            logger.info("Starting Chrome browser");
         }
         
         driver.manage().window().maximize();
@@ -57,7 +60,7 @@ public class BaseTest {
                 e.printStackTrace();
             }
             driver.quit();
-            System.out.println("Browser closed");
+            logger.info("Browser closed");
         }
     }
 }
